@@ -17,13 +17,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.CUSTOM, property = "error", visible = true)
 @JsonTypeIdResolver(LowerCaseClassNameResolver.class)
+@Getter
+@Setter
 class ApiError {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    
     private HttpStatus status;
     private String timestamp;
     private String message;
@@ -115,6 +120,13 @@ class ApiError {
             this.object = object;
             this.message = message;
         }
+
+        /*private ApiValidationError(String object, String field, Object rejectedValue, String message) {
+            this.object = object;
+            this.field = field;
+            this.rejectedValue = rejectedValue;
+            this.message = message;
+        }*/
     }
 }
 

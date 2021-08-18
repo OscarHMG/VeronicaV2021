@@ -13,7 +13,20 @@
 	<properties>
 		<filter.src>${basedir}/..</filter.src>
 	</properties>
-
+	<repositories> 
+		<repository>
+			<id>jasperreports</id>
+			<url>http://jasperreports.sourceforge.net/maven2</url>
+		</repository>
+		<repository>
+			<id>jaspersoft-third-party</id>
+			<url>http://jaspersoft.artifactoryonline.com/jaspersoft/t‌​hird-party-ce-artifa‌​cts/</url>
+		</repository>
+		<repository>
+        	<id> jaspersoft-repo</id>
+        	<url>https://jaspersoft.jfrog.io/jaspersoft/jaspersoft-repo</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.xmlgraphics</groupId>
