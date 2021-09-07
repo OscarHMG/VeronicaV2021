@@ -98,7 +98,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfiguration configuration = new CorsConfiguration();
         //configuration.setExposedHeaders(ImmutableList.of("*"));
         //configuration.addAllowedHeader("*");
-        configuration.setAllowedOrigins(ImmutableList.of("http://localhost:80"));
+        configuration.setAllowedOrigins(ImmutableList.of("http://localhost:80", "http://www.admin.duragasexpress.apptelink.com/"));
         configuration.setAllowedHeaders(ImmutableList.of("Authorization", "Content-Type", "Cache-Control"));
         configuration.setAllowedMethods(ImmutableList.of("OPTIONS", "GET", "POST","PUT", "DELETE"));
         configuration.setAllowCredentials(true);
@@ -133,7 +133,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 @Override
                 public void addCorsMappings(CorsRegistry registry) {
                         registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                                .allowedOrigins("http://localhost:80")
+                                .allowedOrigins("http://localhost:80, http://www.admin.duragasexpress.apptelink.com/")
                                 .allowedHeaders("*");
                 }
         };

@@ -50,7 +50,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
         endpoints.addInterceptor(new HandlerInterceptorAdapter() {
             @Override
             public boolean preHandle(HttpServletRequest hsr, HttpServletResponse rs, Object o) throws Exception {
-                rs.setHeader("Access-Control-Allow-Origin", "http://localhost:80");
+                rs.setHeader("Access-Control-Allow-Origin", "http://localhost:80, http://www.admin.duragasexpress.apptelink.com/");
                 rs.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
                 rs.setHeader("Access-Control-Max-Age", "3600");
                 rs.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
