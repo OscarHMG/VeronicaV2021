@@ -88,12 +88,12 @@ public class RIDEGenerator {
                                 xmlContent));
             }
             //Get Logo
-            Optional<Supplier> empresas = supplierRepository.findByIdNumber(numeroIdentificacion);
+            /*Optional<Supplier> empresas = supplierRepository.findByIdNumber(numeroIdentificacion);
             if (!empresas.isPresent()) {
                 throw new VeronicaException(
                         String.format("No se pudo obtener el logo del número de R.U.C. %s", numeroIdentificacion));
             }
-            byte[] encodedLogo = Base64.getEncoder().encode(empresas.get().getLogo());
+            byte[] encodedLogo = Base64.getEncoder().encode(empresas.get().getLogo());*/
             //Select template
             StringBuilder sbTemplate = new StringBuilder("/com/rolandopalermo/facturacion/ec/ride/RIDE_");
             sbTemplate.append(rootElement);
@@ -109,7 +109,7 @@ public class RIDEGenerator {
             parameters.put("hmapTiposDocumentos", hmapTiposDocumentos);
             parameters.put("hmapTiposImpuestos", hmapTiposImpuestos);
             parameters.put("hmapFormasPago", hmapFormasPago);
-            parameters.put("logo", new String(encodedLogo));
+            //parameters.put("logo", new String(encodedLogo));
             JRXmlDataSource xmlDataSource = new JRXmlDataSource(comprobante.getAbsolutePath(), rootElement);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, xmlDataSource);
             if (jasperPrint == null) {
@@ -122,7 +122,8 @@ public class RIDEGenerator {
             }
             return JasperExportManager.exportReportToPdf(jasperPrint);
         } catch (Exception e) {
-            throw new VeronicaException("Ocurrió un error interno al generar el PDF");
+            e.printStackTrace();
+            throw new VeronicaException("Ocurrió un error interno al generar el PDF - " + e.getMessage());
         }
     }
 

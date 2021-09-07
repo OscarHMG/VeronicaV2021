@@ -154,6 +154,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotWritable(HttpMessageNotWritableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         String error = "Error writing JSON output";
+        System.out.println("ERROR: "+ ex.getMessage() + " | "+ex.getLocalizedMessage());
         return buildResponseEntity(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, error, ex));
     }
 
@@ -162,6 +163,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(javax.persistence.EntityNotFoundException.class)
     protected ResponseEntity<Object> handleEntityNotFound(javax.persistence.EntityNotFoundException ex) {
+        System.out.println("ERROR: "+ ex.getMessage() + " | "+ex.getLocalizedMessage());
         return buildResponseEntity(new ApiError(HttpStatus.NOT_FOUND, ex));
     }
 
@@ -177,6 +179,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         if (ex.getCause() instanceof ConstraintViolationException) {
             return buildResponseEntity(new ApiError(HttpStatus.CONFLICT, "Database error", ex.getCause()));
         }
+        
+        System.out.println("ERROR: "+ ex.getMessage() + " | "+ex.getLocalizedMessage());
         return buildResponseEntity(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex));
     }
 
@@ -191,11 +195,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ApiError apiError = new ApiError(BAD_REQUEST);
         apiError.setMessage(String.format("The parameter '%s' of value '%s' could not be converted to type '%s'", ex.getName(), ex.getValue(), ex.getRequiredType().getSimpleName()));
         apiError.setDebugMessage(ex.getMessage());
+        System.out.println("ERROR: "+ ex.getMessage() + " "+apiError.getDebugMessage());
         return buildResponseEntity(apiError);
     }
 
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
-        VeronicaResponseDTO<ApiError> error = new VeronicaResponseDTO<>(false, apiError);
+        VeronicaResponseDTO<ApiError> error = new VeronicaResponseDTO<>(false, apiError); 
+        System.out.println("GENERIC ERROR: "+ apiError.getMessage() + "---"+apiError.getDebugMessage());
         return new ResponseEntity<>(error, apiError.getStatus());
     }
 
